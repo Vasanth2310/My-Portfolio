@@ -1,5 +1,5 @@
 // Data for portfolio
-import { Html } from 'next/document'
+// import { Html } from 'next/document'
 import {
   ExpressjsIcon,
   JavaScriptIcon,
