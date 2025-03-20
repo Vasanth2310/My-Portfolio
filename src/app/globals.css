@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth !important;
+}
+
+body {
+  font-family: 'Fira Code', monospace;
+  font-optical-sizing: auto;
+  font-style: normal;
+
+  @apply bg-primary text-white;
+}
+
+.rehype-code-title {
+  @apply rounded-t-md bg-[#05101a] px-6 py-3 text-sm font-medium text-primary;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+h2,
+h3 {
+  scroll-margin-top: 5.25rem;
+}
+
+section {
+  scroll-margin-top: 1.5rem;
+}
+
+/* Safari-only */
+@supports (-webkit-hyphens: none) {
+  * {
+    scroll-margin-top: 0;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  h2,
+  h3 {
+    scroll-margin-top: 1.5rem;
+  }
+}
