@@ -583,13 +583,13 @@ function EchoesPanel() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.35, delay: index * 0.02 }}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ y: -6, scale: 1.01 }}
               onClick={() => setSelectedLine(l)}
-              className="group glass relative rounded-2xl p-8 min-h-[220px] border border-white/5 hover:border-primary/30 transition-all cursor-pointer flex flex-col justify-between"
+              className="group glass relative rounded-2xl p-6 min-h-[200px] border border-white/5 hover:border-primary/40 hover:bg-white/[0.04] hover:shadow-[0_12px_30px_-10px_oklch(0.85_0.18_195/0.15)] transition-all cursor-pointer flex flex-col justify-between"
             >
-              <div className="flex gap-4 items-start mb-6">
-                <QuoteIcon className="h-5 w-5 text-primary rotate-180 opacity-70 flex-shrink-0" />
-                <p dir="auto" className="line-clamp-5 whitespace-pre-wrap text-base leading-relaxed text-foreground/90 font-medium">
+              <div className="flex gap-4 items-start mb-4">
+                <QuoteIcon className="h-5 w-5 text-primary rotate-180 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all flex-shrink-0" />
+                <p dir="auto" className="line-clamp-5 whitespace-pre-wrap text-sm sm:text-base leading-relaxed text-foreground/90 font-medium group-hover:text-foreground transition-colors">
                   {l.text}
                 </p>
               </div>
@@ -710,9 +710,17 @@ function PlayhousePanel() {
   );
 }
 
-/* ---------------- PANEL 3: CANVAS (Artworks) ---------------- */
-
 function CanvasPanel() {
+  const [selectedArt, setSelectedArt] = useState<Artwork | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedArt(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
       <div className="mb-8">
@@ -726,8 +734,9 @@ function CanvasPanel() {
         {canvasData.map((art) => (
           <motion.div
             key={art.id}
-            whileHover={{ y: -4 }}
-            className="group glass overflow-hidden rounded-2xl border border-white/5 bg-card/40 transition-colors flex flex-col justify-between"
+            whileHover={{ y: -6, scale: 1.01 }}
+            onClick={() => setSelectedArt(art)}
+            className="group glass overflow-hidden rounded-2xl border border-white/5 bg-card/40 hover:border-primary/40 hover:bg-white/[0.03] transition-all flex flex-col justify-between cursor-pointer"
           >
             <div className="relative aspect-[2/3] overflow-hidden bg-black/20">
               <img
@@ -745,6 +754,50 @@ function CanvasPanel() {
           </motion.div>
         ))}
       </div>
+
+      {/* Dialog Preview Modal */}
+      <AnimatePresence>
+        {selectedArt && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedArt(null)}
+              className="absolute inset-0 bg-black/85 backdrop-blur-md"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative glass max-w-2xl w-full rounded-2xl overflow-hidden border border-white/15 bg-card/95 shadow-2xl z-10 flex flex-col"
+            >
+              {/* Close button */}
+              <button
+                onClick={() => setSelectedArt(null)}
+                className="absolute right-4 top-4 rounded-full p-2 bg-black/60 hover:bg-black/80 text-muted-foreground hover:text-foreground transition cursor-pointer z-20"
+                title="Close overlay"
+              >
+                <Plus className="h-5 w-5 rotate-45" />
+              </button>
+
+              <div className="relative w-full overflow-hidden max-h-[70vh] flex justify-center bg-black/20">
+                <img
+                  src={resolveCanvasImage(selectedArt.url)}
+                  alt={selectedArt.caption}
+                  className="max-w-full max-h-[70vh] object-contain"
+                />
+              </div>
+
+              <div className="p-5 bg-white/[0.02] border-t border-white/5">
+                <p className="text-sm font-medium text-foreground/90 leading-relaxed">
+                  {selectedArt.caption}
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
