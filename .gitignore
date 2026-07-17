@@ -1,0 +1,49 @@
+# ── Dependencies ──────────────────────────────────────────────
+node_modules/
+
+# ── Build outputs ─────────────────────────────────────────────
+dist/
+dist-ssr/
+.output/
+.vinxi/
+.nitro/
+
+# ── Framework caches ──────────────────────────────────────────
+.tanstack/
+.wrangler/
+
+# ── Lockfiles (keep only bun.lock) ───────────────────────────
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ── Logs ──────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ── Environment / secrets ─────────────────────────────────────
+.env
+.env.*
+!.env.example
+.dev.vars
+*.local
+
+# ── OS & editor junk ──────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ── Type generation (auto-regenerated) ───────────────────────
+src/routeTree.gen.ts

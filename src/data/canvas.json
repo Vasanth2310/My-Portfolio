@@ -1,0 +1,20 @@
+[
+  {
+    "id": "art-1",
+    "url": "/src/assets/canvas/Art 1.jpg",
+    "caption": "Art 1",
+    "addedAt": 1735776000000
+  },
+  {
+    "id": "art-2",
+    "url": "/src/assets/canvas/Art 2.jpg",
+    "caption": "Art 2",
+    "addedAt": 1737072000000
+  },
+  {
+    "id": "art-4",
+    "url": "/src/assets/canvas/Art 4.jpg",
+    "caption": "Art 4",
+    "addedAt": 1750809600000
+  }
+]
