@@ -421,7 +421,7 @@ const scrollTo = (id: string) => {
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
+show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
 /* ---------------- SECTIONS ---------------- */
@@ -436,8 +436,15 @@ function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
-  // Use local storage / public folder asset reference
-  const portrait = "/vasanth-placeholder.jpeg";
+  const images = ["/vasanth-placeholder.jpeg", "/vasanth-placeholder(2).jpeg"];
+  const [imgIndex, setImgIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setImgIndex((prev) => (prev + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section id="hero" ref={ref} className="relative flex min-h-screen items-center overflow-hidden">
@@ -448,34 +455,19 @@ function Hero() {
       <motion.div style={{ y, opacity }} className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-32">
         <div className="grid items-center gap-10 md:grid-cols-[1.4fr_1fr]">
           <div>
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs font-mono uppercase tracking-widest text-primary"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" style={{ animation: "neon-pulse 1.6s ease-in-out infinite" }} />
-              AI Engineer · Data Scientist
-            </motion.div>
-
-            <h1 className="text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
-              <RevealLine delay={0.15}>Vasanth Kumar C</RevealLine>
-              <RevealLine delay={0.35}>
-                <FlippingRole />
-              </RevealLine>
+            <div className="flex items-center gap-2">
+              <span className="h-[1px] w-8 bg-primary/70" />
+              <span className="font-mono text-xs uppercase tracking-widest text-primary/80">
+                Welcome to my portfolio
+              </span>
+            </div>
+            <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+              Hi, I'm <span className="text-gradient-neon">Vasanth</span>
             </h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.7 }}
-              className="mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl"
-            >
-              Developing innovative, scalable, and results-driven intelligent systems
-              across <span className="text-foreground">ML</span>,{" "}
-              <span className="text-foreground">Deep Learning</span>, and{" "}
-              <span className="text-foreground">Agentic AI</span> tooling.
-            </motion.p>
+            <FlippingRole />
+            <p className="mt-6 max-w-lg text-base md:text-lg leading-relaxed text-muted-foreground">
+              Building intelligent backend architectures and developer tools that empower humans to build the future.
+            </p>
 
             <motion.blockquote
               initial={{ opacity: 0, y: 12 }}
@@ -493,7 +485,7 @@ function Hero() {
               transition={{ delay: 0.8 }}
               className="mt-10 flex flex-wrap gap-3"
             >
-              <CTAButton href="#" primary icon={<FileText className="h-4 w-4" />}>
+              <CTAButton href="/Vasanth Resume OLT - Cognizant.pdf" primary icon={<FileText className="h-4 w-4" />}>
                 Resume
               </CTAButton>
               <CTAButton href="https://github.com/Vasanth2310" icon={<Github className="h-4 w-4" />}>
@@ -514,14 +506,30 @@ function Hero() {
             <div className="pointer-events-none absolute -inset-6 rounded-[2rem] bg-[radial-gradient(closest-side,oklch(0.85_0.18_195/0.35),transparent_70%)] blur-2xl" />
             <div className="glass relative overflow-hidden rounded-[1.75rem] p-2">
               <div className="pointer-events-none absolute inset-0 rounded-[1.75rem] ring-1 ring-primary/30" />
-              <img
-                src={portrait}
-                alt="Vasanth Kumar C"
-                width={900}
-                height={1100}
-                className="h-auto w-full rounded-[1.4rem] object-cover"
-              />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between rounded-b-[1.4rem] bg-gradient-to-t from-black/70 to-transparent px-4 py-3">
+              <div className="relative w-full overflow-hidden rounded-[1.4rem]">
+                {/* Reference template to preserve aspect ratio */}
+                <img
+                  src={images[0]}
+                  alt="Vasanth Kumar C"
+                  width={900}
+                  height={1100}
+                  className="h-auto w-full opacity-0 pointer-events-none"
+                />
+                {images.map((src, idx) => (
+                  <motion.img
+                    key={src}
+                    src={src}
+                    alt="Vasanth Kumar C"
+                    width={900}
+                    height={1100}
+                    initial={{ opacity: idx === 0 ? 1 : 0 }}
+                    animate={{ opacity: idx === imgIndex ? 1 : 0 }}
+                    transition={{ duration: 1.0, ease: "easeInOut" }}
+                    className="absolute inset-0 w-full h-full object-cover rounded-[1.4rem]"
+                  />
+                ))}
+              </div>
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between rounded-b-[1.4rem] bg-gradient-to-t from-black/70 to-transparent px-4 py-3 z-10">
                 <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-primary">
                   VK
                 </span>
@@ -589,7 +597,7 @@ function CTAButton({
   return (
     <a
       href={href}
-      target={href.startsWith("http") ? "_blank" : undefined}
+      target={href.startsWith("http") || href.endsWith(".pdf") ? "_blank" : undefined}
       rel="noreferrer"
       className={
         "group relative inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all cursor-pointer " +

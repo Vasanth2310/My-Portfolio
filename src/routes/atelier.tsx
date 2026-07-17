@@ -585,7 +585,7 @@ function EchoesPanel() {
               transition={{ duration: 0.35, delay: index * 0.02 }}
               whileHover={{ y: -6, scale: 1.01 }}
               onClick={() => setSelectedLine(l)}
-              className="group glass relative rounded-2xl p-6 min-h-[200px] border border-white/5 hover:border-primary/40 hover:bg-white/[0.04] hover:shadow-[0_12px_30px_-10px_oklch(0.85_0.18_195/0.15)] transition-all cursor-pointer flex flex-col justify-between"
+              className="group glass relative rounded-2xl px-4 py-6 min-h-[200px] border border-white/5 hover:border-primary/40 hover:bg-white/[0.04] hover:shadow-[0_12px_30px_-10px_oklch(0.85_0.18_195/0.15)] transition-all cursor-pointer flex flex-col justify-between"
             >
               <div className="flex gap-4 items-start mb-4">
                 <QuoteIcon className="h-5 w-5 text-primary rotate-180 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all flex-shrink-0" />
@@ -781,11 +781,11 @@ function CanvasPanel() {
                 <Plus className="h-5 w-5 rotate-45" />
               </button>
 
-              <div className="relative w-full overflow-hidden max-h-[70vh] flex justify-center bg-black/20">
+              <div className="relative w-full overflow-hidden max-h-[70vh] flex justify-center bg-black/20 cursor-zoom-in group/zoom">
                 <img
                   src={resolveCanvasImage(selectedArt.url)}
                   alt={selectedArt.caption}
-                  className="max-w-full max-h-[70vh] object-contain"
+                  className="max-w-full max-h-[70vh] object-contain transition-transform duration-500 ease-out group-hover/zoom:scale-150"
                 />
               </div>
 
