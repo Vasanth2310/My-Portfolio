@@ -461,10 +461,12 @@ function Hero() {
                 Welcome to my portfolio
               </span>
             </div>
-            <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-              Hi, I'm <span className="text-gradient-neon">Vasanth</span>
+            <h1 className="mt-4 text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl">
+              Vasanth Kumar C
             </h1>
-            <FlippingRole />
+            <div className="mt-2 text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl">
+              <FlippingRole />
+            </div>
             <p className="mt-6 max-w-lg text-base md:text-lg leading-relaxed text-muted-foreground">
               Building intelligent backend architectures and developer tools that empower humans to build the future.
             </p>
@@ -529,12 +531,9 @@ function Hero() {
                   />
                 ))}
               </div>
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between rounded-b-[1.4rem] bg-gradient-to-t from-black/70 to-transparent px-4 py-3 z-10">
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center rounded-b-[1.4rem] bg-gradient-to-t from-black/70 to-transparent px-4 py-3 z-10">
                 <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-primary">
                   VK
-                </span>
-                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-                  ▲ Online
                 </span>
               </div>
             </div>
